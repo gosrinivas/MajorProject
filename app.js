@@ -115,7 +115,7 @@ app.all("*",(req,res,next)=>{
 //     res.status(statusCode).render("error.ejs", { message, err }); // Pass the whole error object
 // });
 
-console.log()
+
 
 
 app.use((err,req,res,next)=>{
@@ -128,7 +128,7 @@ app.use((err,req,res,next)=>{
    
 
     res.status(StatusCode).render("error.ejs",{message});
-    console.log(err)
+    console.log(err.message)
 })
 
 
