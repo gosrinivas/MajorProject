@@ -13,8 +13,6 @@ const Mong_Url="mongodb://127.0.0.1:27017/wonderman";
 const wrapAsync=require("./utils/wrapAsync.js")
 const ExpressError=require("./utils/ExpressError.js")
 const ListingSchema=require("./schema.js")
-
-
 app.set( "view engine", "ejs" );
 app.set( 'views', path.join(__dirname ,'views') );
 app.use(express.urlencoded({extended : true}))  //to use req
@@ -117,6 +115,8 @@ app.all("*",(req,res,next)=>{
 //     res.status(statusCode).render("error.ejs", { message, err }); // Pass the whole error object
 // });
 
+console.log()
+
 
 app.use((err,req,res,next)=>{
    
@@ -128,7 +128,7 @@ app.use((err,req,res,next)=>{
    
 
     res.status(StatusCode).render("error.ejs",{message});
-    console.log(err.message)
+    console.log(err)
 })
 
 
