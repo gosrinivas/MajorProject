@@ -74,9 +74,9 @@ app.get("/listing/:id",wrapAsync(  async (req, res) => {
 //      res.redirect("/listing")
     
 // }));
-app.post("/listings",async (req, res, next) => {
+app.post("/listing",async (req, res, next) => {
     let {title, description, image, price, country, location} = req.body.listing;
-    const newListing = new Listing({
+    const newListing = new listing({
         title:title,
         description:description,
         location:location,
@@ -86,7 +86,7 @@ app.post("/listings",async (req, res, next) => {
     newListing.image.url = image;
     await newListing.save();
     console.log(newListing);
-    res.redirect("/listings");
+    res.redirect("/listing");
   });
 
 //Edit route
@@ -107,11 +107,14 @@ app.get("/listing/:id/edit",wrapAsync(  async (req, res) => {
 //     res.redirect(`/listing/${id}`)
 // }))
 
-app.put("/:id", wrapAsync(async (req, res, next) => {
+app.put("/listing/:id", wrapAsync(async (req, res, next) => {
     let {id} = req.params;
+
+    console.log("putting")
     let {title, image, description, location, country, price}  = req.body.listing;
+
     
-    let newL = await Listing.findByIdAndUpdate(id, {
+    let newL = await listing.findByIdAndUpdate(id, {
         title:title,
         description:description,
         location:location,
@@ -120,7 +123,7 @@ app.put("/:id", wrapAsync(async (req, res, next) => {
         'image.url' :image
     }, {new:true});
     console.log(newL);
-    res.redirect(`/listings/${id}`);
+    res.redirect(`/listing/${id}`);
     })
 );
 
@@ -132,9 +135,7 @@ app.delete("/listing/:id",wrapAsync(  async(req,res)=>{
     res.redirect("/listing")
 }))
 
-app.all("*",(req,res,next)=>{
-    next(new ExpressError(405,"Page Not Found"));
-} )
+
 
 // app.use((err, req, res, next) => {
 //     console.error(err.stack); // Log the stack trace for debugging
@@ -146,6 +147,9 @@ app.all("*",(req,res,next)=>{
 //     res.status(statusCode).render("error.ejs", { message, err }); // Pass the whole error object
 // });
 
+app.all("*",(req,res,next)=>{
+    next(new ExpressError(405,"Page Not Found"));
+} )
 
 
 
@@ -159,8 +163,9 @@ app.use((err,req,res,next)=>{
    
 
     res.status(StatusCode).render("error.ejs",{message});
-    console.log(err.message)
+    console.log(err)
 })
+
 
 
 
