@@ -67,13 +67,27 @@ app.get("/listing/:id",wrapAsync(  async (req, res) => {
 
 //create route
 
-app.post("/listing", wrapAsync( async(req,res,next)=>{
+// app.post("/listing", wrapAsync( async(req,res,next)=>{
    
-     const newListing= new listing(req.body.listing);
-     await newListing.save();
-     res.redirect("/listing")
+//      const newListing= new listing(req.body.listing);
+//      await newListing.save();
+//      res.redirect("/listing")
     
-}));
+// }));
+app.post("/listings",async (req, res, next) => {
+    let {title, description, image, price, country, location} = req.body.listing;
+    const newListing = new Listing({
+        title:title,
+        description:description,
+        location:location,
+        country:country,
+        price:price,
+    });
+    newListing.image.url = image;
+    await newListing.save();
+    console.log(newListing);
+    res.redirect("/listings");
+  });
 
 //Edit route
 
@@ -87,11 +101,28 @@ app.get("/listing/:id/edit",wrapAsync(  async (req, res) => {
 
 //Update route
 
-app.put("/listing/:id",wrapAsync(  async (req,res)=>{
-    let {id}=req.params;
-    await listing.findByIdAndUpdate(id,{...req.body.listing});
-    res.redirect(`/listing/${id}`)
-}))
+// app.put("/listing/:id",wrapAsync(  async (req,res)=>{
+//     let {id}=req.params;
+//     await listing.findByIdAndUpdate(id,{...req.body.listing});
+//     res.redirect(`/listing/${id}`)
+// }))
+
+app.put("/:id", wrapAsync(async (req, res, next) => {
+    let {id} = req.params;
+    let {title, image, description, location, country, price}  = req.body.listing;
+    
+    let newL = await Listing.findByIdAndUpdate(id, {
+        title:title,
+        description:description,
+        location:location,
+        country:country,
+        price:price,
+        'image.url' :image
+    }, {new:true});
+    console.log(newL);
+    res.redirect(`/listings/${id}`);
+    })
+);
 
 //Delete Route
 
