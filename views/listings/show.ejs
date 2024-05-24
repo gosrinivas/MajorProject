@@ -5,11 +5,14 @@
         <div class="col-8 offset-2">
             
                 <div class="cards  col-6 offset-2" >
-                    <h2>Listing Details</h2>
+                  <h3 class="card-title"><%= Listing.title %></h5>
+                    <br>
                     <img src="<%= Listing.image.url %>" class="card-img-top" alt="..."> <br>
+                    <br>
+                    
                     
                     <div class="card-body">
-                     <b> <h5 class="card-title"><%= Listing.title %></h5></b>
+                    
                       <%= Listing.description %> <br/>
                        &#8377 <%= Listing.price.toLocaleString("en-IN")  %> /Night <br/>
                        <%= Listing.country %> <br/>
@@ -20,7 +23,28 @@
                       </form>
                       <br>
                     </div>
-                  </div>
+                    <div class="col-8 offset-3">
+
+                      <h3>Leave a Review</h3>
+                      <form action="">
+                        <div>
+                          <label for="rating">Rating</label>
+                          <input type="range" min="1" max="5"  id="rating" name="review[rating]">
+                        </div>
+                        <div>
+                          <label for="comment">Comment</label>
+                          <textarea name="review[comment]" id="comment" cols="30" rows="10" placeholder="Faithful comment that helps oyhers"></textarea>
+
+                          
+                        </div>
+
+                        <button>submit</button>
+                        
+                      </form>
+
+                      
+                    </div>
+                </div>
             
                    
    

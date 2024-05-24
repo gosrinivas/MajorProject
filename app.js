@@ -147,9 +147,9 @@ app.delete("/listing/:id",wrapAsync(  async(req,res)=>{
 //     res.status(statusCode).render("error.ejs", { message, err }); // Pass the whole error object
 // });
 
-app.all("*",(req,res,next)=>{
-    next(new ExpressError(405,"Page Not Found"));
-} )
+// app.all("*",(req,res,next)=>{
+//     next(new ExpressError(405,"Page Not Found"));
+// } )
 
 
 
